@@ -10,7 +10,9 @@ suppressPackageStartupMessages(library(stringr))
 
 # set parameter options
 options(stringsAsFactors = FALSE)
+options("scipen" = 100)
 
+# Set the current date parameter
 Today <- str_replace_all(as.character(today()),
                          "-",
                          "")
