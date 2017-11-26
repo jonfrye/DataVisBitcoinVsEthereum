@@ -1,6 +1,4 @@
 # load packages
-suppressPackageStartupMessages(library(data.table))
-suppressPackageStartupMessages(library(bit64))
 suppressPackageStartupMessages(library(ggplot2))
 suppressPackageStartupMessages(library(lubridate))
 suppressPackageStartupMessages(library(scales))
@@ -76,7 +74,7 @@ MU <- mean(eth$Close)
 SD <- sd(eth$Close)
 eth$Zclose <- (eth$Close - MU) / SD
 
-# set parameters for graphing scale
+# set parameters for visualization
 if (max(btc$Zclose) > max(eth$Zclose)) {
   Max <- max(btc$Zclose)
 } else {
@@ -92,15 +90,16 @@ print(ggplot(btc[1:N,],
         geom_line(aes(y = eth$Zclose[1:N]),
                   color = "red") +
         ylab("Z-score Transformation of Daily Close") +
-        scale_x_date(breaks = pretty_breaks(n = 6)) +
+        xlab("2017") +
+        scale_x_date(breaks = pretty_breaks(n = 10)) +
         annotate("text",
-                 x = as.Date("2017-07-01"),
-                 y =  (Max * 0.9),
+                 x = as.Date("2017-04-15"),
+                 y =  (Max * 0.95),
                  label = "Bitcoin   (BTC)",
                  color = "blue") +
         annotate("text",
-                 x = as.Date("2017-07-01"),
-                 y = (Max * 0.85),
+                 x = as.Date("2017-04-15"),
+                 y = (Max * 0.9),
                  label = "Ethereum (ETH)",
                  color = "red") +
         annotate("text",
