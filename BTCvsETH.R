@@ -86,9 +86,9 @@ N <- which(btc$Date == (btc$Date[1] - years(1)))
 print(ggplot(btc[1:N,],
              aes(x = Date,
                  y = Zclose)) +
-        geom_line(color = "blue") +
+        geom_line(color = "steelblue") +
         geom_line(aes(y = eth$Zclose[1:N]),
-                  color = "red") +
+                  color = "darkred") +
         ylab("Z-score Transformation of Daily Close") +
         xlab(paste0(month(btc$Date[N],
                           label = TRUE,
@@ -107,24 +107,25 @@ print(ggplot(btc[1:N,],
                  x = (btc$Date[1] - months(11)),
                  y =  (Max * 0.95),
                  label = "Bitcoin   (BTC)",
-                 color = "blue") +
+                 color = "steelblue") +
         annotate("text",
                  x = (btc$Date[1] - months(11)),
                  y = (Max * 0.9),
                  label = "Ethereum (ETH)",
-                 color = "red") +
+                 color = "darkred") +
         annotate("text",
                  x = btc$Date[1] + days(9),
                  y = btc$Zclose[1],
                  label = paste0("$",
                                 format(btc$Close[1],
                                        big.mark = ",")),
-                 color = "blue") +
+                 color = "steelblue") +
         annotate("text",
                  x = eth$Date[1] + days(9),
                  y = eth$Zclose[1],
                  label = paste0("$",
                                 format(eth$Close[1],
                                        big.mark = ",")),
-                 color = "red")
+                 color = "darkred") +
+        theme_minimal()
 )
