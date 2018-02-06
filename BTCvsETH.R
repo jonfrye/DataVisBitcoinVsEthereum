@@ -78,9 +78,9 @@ eth$Zclose <- (eth$Close - MU) / SD
 if (max(btc$Zclose) > max(eth$Zclose)) {
   Max <- max(btc$Zclose)
 } else {
-  Max <- max(eth$ZClose)
+  Max <- max(eth$Zclose)
 }
-N <- which(btc$Date == as.Date("2017-04-01"))
+N <- which(btc$Date == (btc$Date[1] - years(1)))
 
 # Plot visualizaton
 print(ggplot(btc[1:N,],
@@ -90,15 +90,26 @@ print(ggplot(btc[1:N,],
         geom_line(aes(y = eth$Zclose[1:N]),
                   color = "red") +
         ylab("Z-score Transformation of Daily Close") +
-        xlab("2017") +
-        scale_x_date(breaks = pretty_breaks(n = 10)) +
+        xlab(paste0(month(btc$Date[N],
+                          label = TRUE,
+                          abbr = FALSE),
+                    " ",
+                    year(btc$Date[N]),
+                    " through ",
+                    month(btc$Date[1],
+                          label = TRUE,
+                          abbr = FALSE),
+                    " ",
+                    year(btc$Date[1]))) +
+        scale_x_date(breaks = pretty_breaks(n = 10),
+                     date_labels = "%b") +
         annotate("text",
-                 x = as.Date("2017-04-15"),
+                 x = (btc$Date[1] - months(11)),
                  y =  (Max * 0.95),
                  label = "Bitcoin   (BTC)",
                  color = "blue") +
         annotate("text",
-                 x = as.Date("2017-04-15"),
+                 x = (btc$Date[1] - months(11)),
                  y = (Max * 0.9),
                  label = "Ethereum (ETH)",
                  color = "red") +
